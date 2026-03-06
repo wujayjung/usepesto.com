@@ -339,6 +339,27 @@
     .impact-card p { font-size: 15px; color: var(--text-mid); line-height: 1.65; }
 
     /* ── FEATURE SECTIONS ── */
+    .features-intro-section {
+      background: var(--bg-white);
+      text-align: center;
+      padding-bottom: 0;
+    }
+
+    .features-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(21, 105, 73, 0.08);
+      color: var(--text-mid);
+      border: none;
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
     .feature-section { background: var(--bg-white); }
     .feature-section.alt { background: var(--bg-white); }
 
@@ -393,6 +414,22 @@
       max-width: 320px;
       filter: drop-shadow(0 20px 48px rgba(0,0,0,0.15));
       border-radius: 4px;
+    }
+
+    .feature-image-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      padding: 40px 40px 0;
+      background-size: cover;
+      background-position: center;
+    }
+    .feature-image-card img {
+      display: block;
+      width: 100%;
+      max-width: 280px;
     }
 
     /* ── EXTRAS (features 4-5) ── */
@@ -742,26 +779,30 @@
 <!-- FEATURES FOR REPS -->
 <div id="features"></div>
 
+<section class="features-intro-section">
+  <div class="container">
+    <span class="features-badge"><span class="hero-badge-dot"></span>Features for Reps</span>
+  </div>
+</section>
+
 <!-- FEATURE 1: ORDER CAPTURE -->
 <section class="feature-section">
   <div class="container">
     <div class="feature-grid">
       <div class="feature-content reveal">
-        <span class="section-label">Feature 01 — For Reps</span>
+        <span class="section-label">Feature 01 — Intelligent Order Capture</span>
         <h2 class="section-title">Customer texts an order. Pesto handles the rest.</h2>
-        <p class="section-body">
-          Pesto captures orders from SMS, calls, voicemails, emails, and photos — parses the natural language into exact catalog items, and has a cart ready for one-tap review and approval.
-        </p>
         <ul class="feature-list">
           <li>Captures orders from SMS, calls, voicemails, emails, and photos</li>
-          <li>Matches vague requests to exact SKUs using order history ("the usual chicken" → Tyson #4472819)</li>
+          <li>Parses natural language and matches items using customer history</li>
           <li>Clarifies ambiguities with the customer on the rep's behalf</li>
-          <li>Flags items the customer usually orders but didn't mention</li>
-          <li>Rep reviews, adjusts, and submits with a single tap</li>
+          <li>Auto-populates cart in your ordering system</li>
+          <li>Rep reviews and submits with one tap</li>
+          <li>Flags items they usually order but didn't mention</li>
         </ul>
       </div>
-      <div class="feature-image reveal">
-        <img src="images/demo images/iphone mockups/iphone mockup_order capture.png" alt="Order Capture" />
+      <div class="feature-image-card reveal" style="background-image: linear-gradient(rgba(248,247,244,0.40), rgba(248,247,244,0.40)), url('images/image backgrounds/home office.png');">
+        <img src="images/demo images/iphone mockups/iphone mockup_order capture_cropped.png" alt="Order Capture" />
       </div>
     </div>
   </div>
@@ -772,21 +813,17 @@
   <div class="container">
     <div class="feature-grid reverse">
       <div class="feature-content reveal">
-        <span class="section-label">Feature 02 — For Reps</span>
+        <span class="section-label">Feature 02 — Competitor Price Comparison</span>
         <h2 class="section-title">Win the price conversation. On the spot.</h2>
-        <p class="section-body">
-          A customer pulls out a competitor invoice. The rep snaps a photo and Pesto delivers a full side-by-side comparison in seconds — using what the customer actually pays, not list price.
-        </p>
         <ul class="feature-list">
-          <li>Snap a photo of any competitor invoice, regardless of format</li>
-          <li>AI matches competitor items to your catalog and normalizes units and pack sizes</li>
-          <li>Uses customer-specific pricing for a genuinely accurate comparison</li>
-          <li>Surfaces where you win, where you're close, and where to request deviations</li>
-          <li>Generates a shareable savings summary for the customer on the spot</li>
+          <li>Snap a photo of any competitor invoice</li>
+          <li>AI matches items to your catalog and generates a side-by-side comparison in seconds</li>
+          <li>Normalizes units and flags misleading pack-size differences</li>
+          <li>Generates a shareable savings summary for the customer</li>
         </ul>
       </div>
-      <div class="feature-image reveal">
-        <img src="images/demo images/iphone mockups/iphone mockup_invoice comparison.png" alt="Invoice Comparison" />
+      <div class="feature-image-card reveal" style="background-image: linear-gradient(rgba(248,247,244,0.40), rgba(248,247,244,0.40)), url('images/image backgrounds/kitchen interior.png');">
+        <img src="images/demo images/iphone mockups/iphone mockup_invoice comparison_cropped.png" alt="Invoice Comparison" />
       </div>
     </div>
   </div>
@@ -797,22 +834,18 @@
   <div class="container">
     <div class="feature-grid">
       <div class="feature-content reveal">
-        <span class="section-label">Feature 03 — For Reps</span>
+        <span class="section-label">Feature 03 — Interaction Transcription</span>
         <h2 class="section-title">Walk in. Talk. Walk out with everything done.</h2>
-        <p class="section-body">
-          Tap record, walk into the visit. Pesto transcribes the conversation, generates structured notes, extracts action items and sales opportunities, and syncs directly to CRM — no post-meeting write-ups.
-        </p>
         <ul class="feature-list">
           <li>Transcribes in-person visits, calls, and voicemails automatically</li>
           <li>Generates structured notes by topic — no post-meeting write-ups</li>
           <li>Extracts action items, commitments, and follow-up tasks</li>
-          <li>Flags sales opportunities surfaced during the conversation</li>
+          <li>Flags sales opportunities from conversation content</li>
           <li>Syncs notes and tasks directly to CRM</li>
-          <li>Full searchable history tied to each account</li>
         </ul>
       </div>
-      <div class="feature-image reveal">
-        <img src="images/demo images/iphone mockups/iphone mockup_interaction transcription.png" alt="Interaction Transcription" />
+      <div class="feature-image-card reveal" style="background-image: linear-gradient(rgba(248,247,244,0.40), rgba(248,247,244,0.40)), url('images/image backgrounds/restaurant interior.png');">
+        <img src="images/demo images/iphone mockups/iphone mockup_interaction transcription_cropped.png" alt="Interaction Transcription" />
       </div>
     </div>
   </div>
@@ -827,16 +860,14 @@
     </div>
     <div class="extras-grid">
       <div class="extra-card reveal">
-        <span class="extra-tag">Feature 04</span>
-        <h3>Shorts &amp; Substitutions</h3>
+        <span class="section-label">Feature 04 — Shorts &amp; Substitutions</span>
         <h4 class="extra-subheading">Your customer knows the moment the warehouse does.</h4>
         <p>
           When a short is flagged, Pesto notifies the customer immediately — even before the rep's day starts. It suggests substitutions based on their order history, not defaults. Once confirmed, it handles the changes automatically or loops in the rep.
         </p>
       </div>
       <div class="extra-card reveal">
-        <span class="extra-tag">Feature 05</span>
-        <h3>Order Guide Generation</h3>
+        <span class="section-label">Feature 05 — Order Guide Generation</span>
         <h4 class="extra-subheading">New account? Pesto builds the guide for you.</h4>
         <p>
           Take a customer's menu, inventory list, or a conversation about their needs — and Pesto generates a tailored order guide matched to your catalog. Ready to hand to the customer. No more searching AS400 line by line.
