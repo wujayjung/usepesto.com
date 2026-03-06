@@ -1051,13 +1051,35 @@
     });
   });
 
-  // CTA form
-  function handleSubmit(e) {
+  // CTA form — replace YOUR_FORM_ID with your Formspree form ID
+  async function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('button');
-    btn.textContent = 'Thanks! We\'ll be in touch.';
-    btn.style.background = 'var(--green-dark)';
+    const form = e.target;
+    const btn = form.querySelector('button');
+    const input = form.querySelector('input');
+
+    btn.textContent = 'Sending…';
     btn.disabled = true;
+
+    try {
+      const res = await fetch('https://formspree.io/f/mqeykeea', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form),
+      });
+
+      if (res.ok) {
+        input.style.display = 'none';
+        btn.textContent = "You\'re in — we\'ll be in touch.";
+        btn.style.background = 'var(--green)';
+      } else {
+        btn.textContent = 'Something went wrong. Try again.';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Something went wrong. Try again.';
+      btn.disabled = false;
+    }
   }
 </script>
 </body>
