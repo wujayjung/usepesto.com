@@ -47,13 +47,22 @@
       justify-content: space-between;
       padding: 0 48px;
       height: 68px;
-      background: rgba(248, 247, 244, 0.70);
+      background: rgba(248, 247, 244, 0.75);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid transparent;
-      transition: border-color 0.2s ease;
+      transition: background 0.4s ease, border-color 0.2s ease;
     }
-    nav.scrolled {
-      border-bottom-color: var(--border);
+    nav.scrolled { border-bottom-color: var(--border); }
+    nav[data-theme="white"] { background: rgba(255, 255, 255, 0.75); }
+    nav[data-theme="white"].scrolled { border-bottom-color: var(--border); }
+    nav[data-theme="dark"] {
+      background: rgba(17, 24, 22, 0.85);
+      border-bottom-color: rgba(255,255,255,0.08);
+    }
+    nav[data-theme="dark"] .nav-logo img { filter: brightness(0) invert(1); }
+    nav[data-theme="dark"] .nav-cta {
+      background: var(--green-light);
+      color: #111816;
     }
 
     .nav-logo img { height: 40px; }
@@ -689,7 +698,7 @@
 </nav>
 
 <!-- HERO -->
-<section style="padding: 0;">
+<section style="padding: 0;" data-nav-theme="cream">
   <div class="hero">
     <div class="hero-content">
       <div class="hero-badge">
@@ -880,7 +889,7 @@
 </section>
 
 <!-- FEATURE 6: MANAGER DASHBOARD -->
-<section class="manager-section">
+<section class="manager-section" data-nav-theme="dark">
   <div class="manager-inner">
     <div style="text-align:center; margin-bottom: 48px;">
       <span class="features-badge features-badge--dark"><span class="hero-badge-dot"></span>Feature for Managers</span>
@@ -919,7 +928,7 @@
 </section>
 
 <!-- EARLY ACCESS CTA -->
-<section class="cta-section" id="early-access">
+<section class="cta-section" id="early-access" data-nav-theme="cream">
   <div class="cta-inner">
     <div class="reveal">
       <span class="section-label">Early Access</span>
@@ -944,11 +953,25 @@
 </footer>
 
 <script>
-  // Nav border on scroll
+  // Nav scroll + theme
   const nav = document.querySelector('nav');
-  window.addEventListener('scroll', () => {
+  const themedSections = document.querySelectorAll('[data-nav-theme]');
+
+  function updateNav() {
     nav.classList.toggle('scrolled', window.scrollY > 0);
-  }, { passive: true });
+    const navBottom = nav.offsetHeight;
+    let theme = 'white';
+    themedSections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= navBottom && rect.bottom > navBottom) {
+        theme = section.dataset.navTheme;
+      }
+    });
+    nav.dataset.theme = theme;
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
 
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
