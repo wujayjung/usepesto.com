@@ -168,7 +168,7 @@
       background: var(--bg-white);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 40px 0;
+      padding: 56px 0;
       overflow: hidden;
     }
 
@@ -179,34 +179,41 @@
       color: var(--text-muted);
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-bottom: 28px;
+      margin-bottom: 40px;
     }
 
     .marquee-track-wrap {
       overflow: hidden;
-      mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     }
 
     .marquee-track {
       display: flex;
       align-items: center;
-      gap: 64px;
       width: max-content;
-      animation: marquee 28s linear infinite;
+      animation: marquee 32s linear infinite;
     }
 
+    /* Each logo carries its own trailing margin so the seam is seamless */
     .marquee-track img,
     .marquee-track svg {
-      height: 28px;
-      max-width: 140px;
+      height: 32px;
+      max-width: 160px;
       object-fit: contain;
-      filter: grayscale(100%) brightness(0) opacity(0.55);
+      margin-right: 88px;
+      filter: grayscale(100%) brightness(0) opacity(0.5);
       transition: filter 0.3s;
     }
     .marquee-track img:hover,
     .marquee-track svg:hover {
       filter: grayscale(0%) opacity(1);
+    }
+
+    /* Sysco PNG has heavy whitespace — render it taller to compensate */
+    .marquee-track .logo-sysco {
+      height: 52px;
+      max-width: 120px;
     }
 
     @keyframes marquee {
@@ -658,14 +665,14 @@
   <div class="marquee-track-wrap">
     <div class="marquee-track">
       <!-- Set 1 -->
-      <img src="images/logos_experience/unedited versions/sysco-logo.png" alt="Sysco" />
+      <img class="logo-sysco" src="images/logos_experience/unedited versions/sysco-logo.png" alt="Sysco" />
       <img src="images/logos_experience/unedited versions/amazon_logo.png" alt="Amazon" />
       <img src="images/logos_experience/unedited versions/bcg-logo.png" alt="BCG" />
       <img src="images/logos_experience/unedited versions/freshpoint-logo.png" alt="Freshpoint" />
       <img src="images/logos_experience/unedited versions/Cognizant_logo_2022.svg" alt="Cognizant" />
       <img src="images/logos_experience/unedited versions/corgi-logo.png" alt="Corgi" />
-      <!-- Set 2 (duplicate for loop) -->
-      <img src="images/logos_experience/unedited versions/sysco-logo.png" alt="Sysco" />
+      <!-- Set 2 (duplicate for seamless loop) -->
+      <img class="logo-sysco" src="images/logos_experience/unedited versions/sysco-logo.png" alt="Sysco" />
       <img src="images/logos_experience/unedited versions/amazon_logo.png" alt="Amazon" />
       <img src="images/logos_experience/unedited versions/bcg-logo.png" alt="BCG" />
       <img src="images/logos_experience/unedited versions/freshpoint-logo.png" alt="Freshpoint" />
