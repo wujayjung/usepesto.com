@@ -199,6 +199,7 @@
     }
 
     .marquee-track-wrap {
+      display: flex;
       overflow: hidden;
       mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
       -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
@@ -207,7 +208,8 @@
     .marquee-track {
       display: flex;
       align-items: center;
-      width: max-content;
+      flex-shrink: 0;
+      will-change: transform;
       animation: marquee 32s linear infinite;
     }
 
@@ -240,7 +242,7 @@
 
     @keyframes marquee {
       from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+      to { transform: translateX(-100%); }
     }
 
     /* ── SHARED SECTION STYLES ── */
@@ -709,7 +711,6 @@
   <p class="marquee-label">Built by a team from</p>
   <div class="marquee-track-wrap">
     <div class="marquee-track">
-      <!-- Set 1 -->
       <img class="logo-sysco" src="images/logos_experience/unedited versions/sysco-logo.png" alt="Sysco" />
       <img src="images/logos_experience/unedited versions/freshpoint-logo.png" alt="Freshpoint" />
       <img src="images/logos_experience/unedited versions/amazon_logo.png" alt="Amazon" />
@@ -717,14 +718,15 @@
       <img src="images/logos_experience/unedited versions/Cognizant_logo_2022.svg" alt="Cognizant" />
       <img class="logo-porsche" src="images/logos_experience/unedited versions/porsche_logo.png" alt="Porsche" />
       <img src="images/logos_experience/unedited versions/corgi-logo.png" alt="Corgi" />
-      <!-- Set 2 (duplicate for seamless loop) -->
-      <img class="logo-sysco" src="images/logos_experience/unedited versions/sysco-logo.png" alt="Sysco" />
-      <img src="images/logos_experience/unedited versions/freshpoint-logo.png" alt="Freshpoint" />
-      <img src="images/logos_experience/unedited versions/amazon_logo.png" alt="Amazon" />
-      <img src="images/logos_experience/unedited versions/bcg-logo.png" alt="BCG" />
-      <img src="images/logos_experience/unedited versions/Cognizant_logo_2022.svg" alt="Cognizant" />
-      <img class="logo-porsche" src="images/logos_experience/unedited versions/porsche_logo.png" alt="Porsche" />
-      <img src="images/logos_experience/unedited versions/corgi-logo.png" alt="Corgi" />
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <img class="logo-sysco" src="images/logos_experience/unedited versions/sysco-logo.png" alt="" />
+      <img src="images/logos_experience/unedited versions/freshpoint-logo.png" alt="" />
+      <img src="images/logos_experience/unedited versions/amazon_logo.png" alt="" />
+      <img src="images/logos_experience/unedited versions/bcg-logo.png" alt="" />
+      <img src="images/logos_experience/unedited versions/Cognizant_logo_2022.svg" alt="" />
+      <img class="logo-porsche" src="images/logos_experience/unedited versions/porsche_logo.png" alt="" />
+      <img src="images/logos_experience/unedited versions/corgi-logo.png" alt="" />
     </div>
   </div>
 </div>
