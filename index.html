@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pesto — AI Sales Agent for Food Distribution</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #2E6E4E;
+      --green-light: #52B788;
+      --green-pale: #EAF4EE;
+      --green-dark: #1A3D2B;
+      --bg: #F8F7F4;
+      --bg-white: #FFFFFF;
+      --text: #111816;
+      --text-mid: #3D4A42;
+      --text-muted: #7A8A81;
+      --border: #E4E8E5;
+      --radius: 16px;
+      --radius-lg: 24px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --shadow-lg: 0 8px 48px rgba(0,0,0,0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: rgba(248, 247, 244, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo img { height: 28px; }
+
+    .nav-cta {
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: -0.01em;
+    }
+    .nav-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 48px 80px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-pale);
+      color: var(--green);
+      border: 1px solid #C5DFD0;
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin-bottom: 24px;
+    }
+    .hero-badge-dot {
+      width: 7px; height: 7px;
+      background: var(--green-light);
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-size: clamp(38px, 5vw, 60px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--green);
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text-mid);
+      line-height: 1.65;
+      max-width: 480px;
+      margin-bottom: 36px;
+      font-weight: 400;
+    }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--green);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: -0.01em;
+    }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      padding: 14px 28px;
+      border-radius: 50px;
+      border: 1.5px solid var(--border);
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.15s;
+      letter-spacing: -0.01em;
+    }
+    .btn-secondary:hover { border-color: var(--text-mid); transform: translateY(-1px); }
+
+    .hero-image {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    .hero-image img {
+      width: 100%;
+      max-width: 420px;
+      filter: drop-shadow(0 24px 64px rgba(0,0,0,0.18));
+      border-radius: 2px;
+    }
+
+    /* ── LOGO MARQUEE ── */
+    .marquee-section {
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 0;
+      overflow: hidden;
+    }
+
+    .marquee-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .marquee-track-wrap {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+
+    .marquee-track img,
+    .marquee-track svg {
+      height: 28px;
+      max-width: 140px;
+      object-fit: contain;
+      filter: grayscale(100%) brightness(0) opacity(0.55);
+      transition: filter 0.3s;
+    }
+    .marquee-track img:hover,
+    .marquee-track svg:hover {
+      filter: grayscale(0%) opacity(1);
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SHARED SECTION STYLES ── */
+    section { padding: 96px 48px; }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .section-body {
+      font-size: 17px;
+      color: var(--text-mid);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* ── INTRO / PROBLEM ── */
+    .intro-section { background: var(--bg); }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .intro-left .section-title { max-width: 480px; }
+
+    .pain-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pain-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .pain-icon {
+      width: 40px; height: 40px;
+      background: var(--green-pale);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    .pain-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+    }
+    .pain-card p { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+
+    .insight-box {
+      margin-top: 32px;
+      background: var(--green);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 28px 32px;
+    }
+    .insight-box p {
+      font-size: 16px;
+      line-height: 1.65;
+      opacity: 0.92;
+    }
+    .insight-box strong { opacity: 1; font-weight: 700; }
+
+    /* ── IMPACT ── */
+    .impact-section { background: var(--bg-white); }
+
+    .impact-header { text-align: center; margin-bottom: 56px; }
+    .impact-header .section-body { margin: 0 auto; text-align: center; }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .impact-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .impact-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+
+    .impact-card-icon {
+      width: 48px; height: 48px;
+      background: var(--green-pale);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .impact-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .impact-card p { font-size: 14px; color: var(--text-mid); line-height: 1.65; }
+
+    /* ── FEATURE SECTIONS ── */
+    .feature-section { background: var(--bg); }
+    .feature-section.alt { background: var(--bg-white); }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .feature-grid.reverse { direction: rtl; }
+    .feature-grid.reverse > * { direction: ltr; }
+
+    .feature-content { max-width: 480px; }
+    .feature-content .section-title { margin-bottom: 16px; }
+    .feature-content .section-body { margin-bottom: 28px; }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .feature-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.55;
+    }
+    .feature-list li::before {
+      content: '';
+      display: block;
+      width: 18px; height: 18px;
+      background: var(--green-pale);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 1px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%232E6E4E' d='M6.5 11.5L3 8l1.06-1.06L6.5 9.38l5.44-5.44L13 5l-6.5 6.5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 13px;
+    }
+
+    .feature-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .feature-image img {
+      width: 100%;
+      max-width: 320px;
+      filter: drop-shadow(0 20px 48px rgba(0,0,0,0.15));
+      border-radius: 4px;
+    }
+
+    /* ── EXTRAS (features 4-5) ── */
+    .extras-section { background: var(--bg); }
+
+    .extras-header { text-align: center; margin-bottom: 48px; }
+
+    .extras-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .extra-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px 36px;
+    }
+
+    .extra-tag {
+      display: inline-block;
+      background: var(--green-pale);
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+    }
+
+    .extra-card h3 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+
+    .extra-card p { font-size: 15px; color: var(--text-mid); line-height: 1.7; margin-bottom: 24px; }
+
+    .extra-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .extra-bullets li {
+      font-size: 14px;
+      color: var(--text-mid);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .extra-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--green-light);
+      font-weight: 700;
+    }
+
+    /* ── MANAGER SECTION ── */
+    .manager-section {
+      background: var(--green-dark);
+      padding: 100px 48px;
+    }
+
+    .manager-inner { max-width: 1200px; margin: 0 auto; }
+
+    .manager-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .manager-header .section-label { color: var(--green-light); }
+
+    .manager-header .section-title {
+      color: #fff;
+      max-width: 640px;
+      margin: 0 auto 20px;
+    }
+
+    .manager-header .section-body {
+      color: rgba(255,255,255,0.65);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .manager-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 52px;
+    }
+
+    .manager-stat {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .manager-stat-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.04em;
+      margin-bottom: 6px;
+    }
+    .manager-stat-value span { color: var(--green-light); }
+    .manager-stat-label { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.4; }
+
+    .manager-screenshot {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+    }
+    .manager-screenshot img { width: 100%; display: block; border-radius: var(--radius-lg); }
+
+    .manager-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .manager-feature {
+      padding: 20px;
+    }
+    .manager-feature h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .manager-feature p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--bg-white);
+      text-align: center;
+      padding: 100px 48px;
+    }
+
+    .cta-inner { max-width: 560px; margin: 0 auto; }
+
+    .cta-inner .section-title { margin-bottom: 16px; }
+    .cta-inner .section-body { margin: 0 auto 40px; text-align: center; }
+
+    .cta-form {
+      display: flex;
+      gap: 12px;
+      max-width: 440px;
+      margin: 0 auto 16px;
+    }
+
+    .cta-input {
+      flex: 1;
+      padding: 14px 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .cta-input::placeholder { color: var(--text-muted); }
+    .cta-input:focus { border-color: var(--green-light); }
+
+    .cta-note { font-size: 13px; color: var(--text-muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer img { height: 22px; }
+    footer p { font-size: 13px; color: var(--text-muted); }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      section { padding: 64px 24px; }
+      .hero { grid-template-columns: 1fr; padding: 72px 24px 48px; gap: 48px; }
+      .hero-image { order: -1; }
+      .hero-image img { max-width: 280px; }
+      .intro-grid { grid-template-columns: 1fr; gap: 40px; }
+      .feature-grid, .feature-grid.reverse { grid-template-columns: 1fr; direction: ltr; gap: 40px; }
+      .feature-image { order: -1; }
+      .extras-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr; }
+      .manager-stats { grid-template-columns: repeat(2, 1fr); }
+      .manager-features { grid-template-columns: 1fr; }
+      .manager-section { padding: 64px 24px; }
+      .cta-section { padding: 64px 24px; }
+      .cta-form { flex-direction: column; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="images/pesto logos/png logos/leaf and word_horizontal_black.png" alt="Pesto" />
+  </div>
+  <a href="#early-access" class="nav-cta">Get Early Access</a>
+</nav>
+
+<!-- HERO -->
+<section style="padding: 0;">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        AI Agent for Food Distribution Sales
+      </div>
+      <h1 class="hero-title">
+        Your reps sell.<br />
+        <em>Pesto</em> handles the rest.
+      </h1>
+      <p class="hero-sub">
+        An AI co-pilot that captures orders, beats competitors on price, and logs every customer interaction — automatically. Built for food distribution sales teams.
+      </p>
+      <div class="hero-actions">
+        <a href="#early-access" class="btn-primary">Get Early Access</a>
+        <a href="#features" class="btn-secondary">See how it works</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="images/demo images/iphone mockups/angled iphone mockup_homepage.png" alt="Pesto app" />
+    </div>
+  </div>
+</section>
+
+<!-- LOGO MARQUEE -->
+<div class="marquee-section">
+  <p class="marquee-label">Built by a team from</p>
+  <div class="marquee-track-wrap">
+    <div class="marquee-track">
+      <!-- Set 1 -->
+      <img src="images/logos_experience/unedited versions/sysco-logo.png" alt="Sysco" />
+      <img src="images/logos_experience/unedited versions/amazon_logo.png" alt="Amazon" />
+      <img src="images/logos_experience/unedited versions/bcg-logo.png" alt="BCG" />
+      <img src="images/logos_experience/unedited versions/freshpoint-logo.png" alt="Freshpoint" />
+      <img src="images/logos_experience/unedited versions/Cognizant_logo_2022.svg" alt="Cognizant" />
+      <img src="images/logos_experience/unedited versions/corgi-logo.png" alt="Corgi" />
+      <!-- Set 2 (duplicate for loop) -->
+      <img src="images/logos_experience/unedited versions/sysco-logo.png" alt="Sysco" />
+      <img src="images/logos_experience/unedited versions/amazon_logo.png" alt="Amazon" />
+      <img src="images/logos_experience/unedited versions/bcg-logo.png" alt="BCG" />
+      <img src="images/logos_experience/unedited versions/freshpoint-logo.png" alt="Freshpoint" />
+      <img src="images/logos_experience/unedited versions/Cognizant_logo_2022.svg" alt="Cognizant" />
+      <img src="images/logos_experience/unedited versions/corgi-logo.png" alt="Corgi" />
+    </div>
+  </div>
+</div>
+
+<!-- INTRO / PROBLEM -->
+<section class="intro-section">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-left reveal">
+        <span class="section-label">The Problem</span>
+        <h2 class="section-title">Food distribution sales is still stuck in the 90s</h2>
+        <p class="section-body">
+          Reps are burying themselves in manual order entry, scrambling to respond to customer requests, and flying blind when competitors undercut their prices. The result: less time selling, more time on admin.
+        </p>
+        <div class="insight-box" style="margin-top: 32px;">
+          <p><strong>The insight:</strong> The best distribution reps don't just take orders — they build relationships, spot opportunities, and retain accounts. But today's tools force them to spend the majority of their day doing the opposite.</p>
+        </div>
+      </div>
+      <div class="intro-right reveal">
+        <div class="pain-cards">
+          <div class="pain-card">
+            <div class="pain-icon">📞</div>
+            <div>
+              <h4>Orders lost in translation</h4>
+              <p>Customers text, call, and leave voicemails with orders. Reps manually decode them, look up item numbers, and key them in — one by one, all day long.</p>
+            </div>
+          </div>
+          <div class="pain-card">
+            <div class="pain-icon">🧾</div>
+            <div>
+              <h4>No answer to "they're cheaper"</h4>
+              <p>When a customer pulls out a competitor invoice, reps have no way to quickly validate the claim or counter it with their own pricing on the spot.</p>
+            </div>
+          </div>
+          <div class="pain-card">
+            <div class="pain-icon">📝</div>
+            <div>
+              <h4>Admin that never ends</h4>
+              <p>Every customer visit generates notes to write, CRM updates to log, tasks to create, and follow-ups to plan — all done manually, after the fact.</p>
+            </div>
+          </div>
+          <div class="pain-card">
+            <div class="pain-icon">🔭</div>
+            <div>
+              <h4>Managers flying blind</h4>
+              <p>Leaders rely on top-line numbers and whatever reps choose to share. Real visibility into rep activity, account health, and at-risk customers doesn't exist.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact-section">
+  <div class="container">
+    <div class="impact-header reveal">
+      <span class="section-label">The Impact</span>
+      <h2 class="section-title">Pesto helps you...</h2>
+      <p class="section-body">
+        From the moment a customer reaches out to the moment an order is placed, confirmed, and logged — Pesto handles the operational work so your reps can focus on what actually drives revenue.
+      </p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card reveal">
+        <div class="impact-card-icon">⚡</div>
+        <h3>Process orders in seconds, not minutes</h3>
+        <p>Orders from calls, texts, and voicemails are automatically parsed, matched to catalog items, and staged for one-tap approval.</p>
+      </div>
+      <div class="impact-card reveal">
+        <div class="impact-card-icon">💰</div>
+        <h3>Win price conversations instantly</h3>
+        <p>When a competitor invoice appears, reps get an immediate, accurate side-by-side comparison using the customer's actual pricing — not list price.</p>
+      </div>
+      <div class="impact-card reveal">
+        <div class="impact-card-icon">🎯</div>
+        <h3>Walk out of every meeting ready to act</h3>
+        <p>Notes, action items, CRM updates, and sales opportunities are automatically generated from every in-person visit — no post-meeting write-ups required.</p>
+      </div>
+      <div class="impact-card reveal">
+        <div class="impact-card-icon">📦</div>
+        <h3>Never surprise a customer with a short</h3>
+        <p>Pesto detects shorted items before delivery, notifies customers proactively, and handles the back-and-forth on substitutions automatically.</p>
+      </div>
+      <div class="impact-card reveal">
+        <div class="impact-card-icon">🚀</div>
+        <h3>Onboard new accounts in a fraction of the time</h3>
+        <p>Order guides are built automatically from the customer's menu and preferences — no more manual catalog lookups or purchasing team back-and-forth.</p>
+      </div>
+      <div class="impact-card reveal">
+        <div class="impact-card-icon">📊</div>
+        <h3>Give managers real visibility, finally</h3>
+        <p>Because Pesto captures every interaction, managers get a live view of rep activity, account health, and pipeline without reps doing a single extra thing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES FOR REPS -->
+<div id="features"></div>
+
+<!-- FEATURE 1: ORDER CAPTURE -->
+<section class="feature-section">
+  <div class="container">
+    <div class="feature-grid">
+      <div class="feature-content reveal">
+        <span class="section-label">Feature 01 — For Reps</span>
+        <h2 class="section-title">Intelligent Order Capture</h2>
+        <p class="section-body">
+          Customers text, call, or leave a voicemail. Pesto intercepts it, parses the natural language into exact catalog items, and has a cart ready for one-tap review and approval.
+        </p>
+        <ul class="feature-list">
+          <li>Captures orders from SMS, calls, voicemails, and in-person conversations</li>
+          <li>Matches vague requests to exact SKUs using order history ("the usual chicken" → Tyson #4472819)</li>
+          <li>Flags missing items the customer usually orders but didn't mention</li>
+          <li>Rep reviews, adjusts, and submits with a single tap</li>
+        </ul>
+      </div>
+      <div class="feature-image reveal">
+        <img src="images/demo images/iphone mockups/iphone mockup_order capture.png" alt="Order Capture" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 2: INVOICE COMPARISON -->
+<section class="feature-section alt">
+  <div class="container">
+    <div class="feature-grid reverse">
+      <div class="feature-content reveal">
+        <span class="section-label">Feature 02 — For Reps</span>
+        <h2 class="section-title">Instant Competitor Price Comparison</h2>
+        <p class="section-body">
+          A customer pulls out a competitor invoice and says "I'm getting a better deal." The rep snaps a photo and Pesto delivers a full side-by-side comparison in seconds — using what the customer actually pays, not list price.
+        </p>
+        <ul class="feature-list">
+          <li>Snap a photo of any competitor invoice, regardless of format</li>
+          <li>AI extracts every line item and matches it to your catalog</li>
+          <li>Uses customer-specific pricing for an accurate comparison</li>
+          <li>Surfaces where you win, where you're competitive, and where to request deviations</li>
+        </ul>
+      </div>
+      <div class="feature-image reveal">
+        <img src="images/demo images/iphone mockups/iphone mockup_invoice comparison.png" alt="Invoice Comparison" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 3: TRANSCRIPTION -->
+<section class="feature-section">
+  <div class="container">
+    <div class="feature-grid">
+      <div class="feature-content reveal">
+        <span class="section-label">Feature 03 — For Reps</span>
+        <h2 class="section-title">Customer Interaction Transcription</h2>
+        <p class="section-body">
+          The rep selects a customer, taps record, and walks into the meeting. Pesto listens, understands, and generates notes, action items, opportunities, and CRM-ready output — automatically.
+        </p>
+        <ul class="feature-list">
+          <li>One-tap recording runs silently in the background during visits</li>
+          <li>Full searchable transcript with meeting summary and key takeaways</li>
+          <li>Orders and requests extracted and fed directly into order capture</li>
+          <li>CRM-ready notes, tasks, and opportunities — no write-ups required</li>
+        </ul>
+      </div>
+      <div class="feature-image reveal">
+        <img src="images/demo images/iphone mockups/iphone mockup_interaction transcription.png" alt="Interaction Transcription" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES 4-5: EXTRAS -->
+<section class="extras-section">
+  <div class="container">
+    <div class="extras-header reveal">
+      <span class="section-label">Also Built In</span>
+      <h2 class="section-title">More automation, fewer headaches</h2>
+    </div>
+    <div class="extras-grid">
+      <div class="extra-card reveal">
+        <span class="extra-tag">Feature 04</span>
+        <h3>Shorts &amp; Substitutions</h3>
+        <p>
+          An ordered item can't be delivered. With Pesto, the customer knows before the truck arrives — not after. The agent detects the short, suggests a substitution, and handles the back-and-forth.
+        </p>
+        <ul class="extra-bullets">
+          <li>Detects shorted items through inventory system integration or manual shorts reports</li>
+          <li>Matches the best available substitute based on category, brand, and customer preferences</li>
+          <li>Notifies the customer proactively via their preferred channel (text, email, app)</li>
+          <li>Routes the customer's approve/decline response back to the warehouse and rep simultaneously</li>
+        </ul>
+      </div>
+      <div class="extra-card reveal">
+        <span class="extra-tag">Feature 05</span>
+        <h3>Order Guide Generation</h3>
+        <p>
+          Opening a new account? Pesto builds the full order guide automatically from the customer's menu, preferences, and conversations — no more manual AS400 lookups or back-and-forth with purchasing.
+        </p>
+        <ul class="extra-bullets">
+          <li>Ingests the customer's menu (photo, PDF, or URL) to identify what they need</li>
+          <li>Maps menu items to catalog products with correct item numbers, pack sizes, and real pricing</li>
+          <li>Produces a clean, editable PDF order guide on the spot</li>
+          <li>Updates automatically as ordering patterns develop post-onboarding</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 6: MANAGER DASHBOARD -->
+<section class="manager-section">
+  <div class="manager-inner">
+    <div class="manager-header reveal">
+      <span class="section-label">Feature 06 — For Sales Managers</span>
+      <h2 class="section-title">Real visibility into your team, for the first time</h2>
+      <p class="section-body">
+        Because Pesto already captures every interaction, order, and conversation across the team's day, managers get a live view of what's actually happening in the field — without reps doing any extra reporting.
+      </p>
+    </div>
+
+    <div class="manager-stats reveal">
+      <div class="manager-stat">
+        <div class="manager-stat-value">0</div>
+        <div class="manager-stat-label">Extra reports required from reps</div>
+      </div>
+      <div class="manager-stat">
+        <div class="manager-stat-value"><span>100%</span></div>
+        <div class="manager-stat-label">Of interactions captured and structured</div>
+      </div>
+      <div class="manager-stat">
+        <div class="manager-stat-value">Live</div>
+        <div class="manager-stat-label">Activity feed across the entire team</div>
+      </div>
+      <div class="manager-stat">
+        <div class="manager-stat-value"><span>Early</span></div>
+        <div class="manager-stat-label">At-risk accounts flagged before they churn</div>
+      </div>
+    </div>
+
+    <div class="manager-screenshot reveal">
+      <img src="images/demo images/manager visibility dashboard_screenshot.png" alt="Manager Visibility Dashboard" />
+    </div>
+
+    <div class="manager-features reveal">
+      <div class="manager-feature">
+        <h4>Rep activity &amp; performance</h4>
+        <p>Visit frequency, responsiveness, and activity-to-outcome data for every rep — based on what actually happened, not what they logged.</p>
+      </div>
+      <div class="manager-feature">
+        <h4>Customer health &amp; risk signals</h4>
+        <p>Declining order frequency, unresolved issues, and competitive threat indicators surface automatically before an account churns.</p>
+      </div>
+      <div class="manager-feature">
+        <h4>Pipeline &amp; opportunity tracking</h4>
+        <p>Every customer conversation generates opportunities and tasks. Managers see what's being surfaced, what's stalled, and what needs attention.</p>
+      </div>
+      <div class="manager-feature">
+        <h4>Team-level insights</h4>
+        <p>Identify what top-performing reps do differently and replicate it. Spot overloaded territories and coaching opportunities across the org.</p>
+      </div>
+      <div class="manager-feature">
+        <h4>Seamless account transfers</h4>
+        <p>When reps leave or territories change, the full interaction history stays with the account. Institutional knowledge never walks out the door.</p>
+      </div>
+      <div class="manager-feature">
+        <h4>No self-reporting required</h4>
+        <p>Managers see what actually happened — not just what reps chose to enter in the CRM. Consistent data quality across the entire team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EARLY ACCESS CTA -->
+<section class="cta-section" id="early-access">
+  <div class="cta-inner">
+    <span class="section-label reveal">Early Access</span>
+    <h2 class="section-title reveal">Be first in line.</h2>
+    <p class="section-body reveal">
+      Pesto is in early access. We're working closely with a small group of food distribution teams to shape the product. If you want in — or just want to learn more — let's talk.
+    </p>
+    <form class="cta-form reveal" onsubmit="handleSubmit(event)">
+      <input class="cta-input" type="email" placeholder="Your work email" required />
+      <button type="submit" class="btn-primary">Get Access</button>
+    </form>
+    <p class="cta-note reveal">No pitch decks. Just a real conversation about your team's workflow.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="images/pesto logos/png logos/leaf and word_horizontal_black.png" alt="Pesto" />
+  <p>© 2025 Pesto. All rights reserved.</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger siblings
+  document.querySelectorAll('.impact-grid, .extras-grid, .pain-cards, .manager-features, .manager-stats').forEach(grid => {
+    [...grid.children].forEach((child, i) => {
+      child.style.transitionDelay = `${i * 80}ms`;
+    });
+  });
+
+  // CTA form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Thanks! We\'ll be in touch.';
+    btn.style.background = 'var(--green-dark)';
+    btn.disabled = true;
+  }
+</script>
+</body>
+</html>
