@@ -360,6 +360,11 @@
       text-transform: uppercase;
     }
 
+    .features-badge--dark {
+      background: rgba(82, 183, 136, 0.15);
+      color: var(--green-light);
+    }
+
     .feature-section { background: var(--bg-white); }
     .feature-section.alt { background: var(--bg-white); }
 
@@ -513,7 +518,7 @@
       text-align: center;
       margin-bottom: 64px;
     }
-    .manager-header .section-label { color: var(--green-light); }
+    .manager-header .section-label { color: rgba(255,255,255,0.5); }
 
     .manager-header .section-title {
       color: #fff;
@@ -551,32 +556,29 @@
     .manager-stat-value span { color: var(--green-light); }
     .manager-stat-label { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.4; }
 
-    .manager-screenshot {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 32px 80px rgba(0,0,0,0.4);
-    }
-    .manager-screenshot img { width: 100%; display: block; border-radius: var(--radius-lg); }
+    .manager-screenshot img { width: 100%; display: block; }
 
     .manager-features {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
       margin-top: 40px;
     }
 
     .manager-feature {
-      padding: 20px;
+      padding: 28px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius);
     }
     .manager-feature h4 {
-      font-size: 15px;
+      font-size: 18px;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       letter-spacing: -0.02em;
     }
-    .manager-feature p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+    .manager-feature p { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.6; }
 
     /* ── CTA ── */
     .cta-section {
@@ -870,7 +872,7 @@
         <span class="section-label">Feature 05 — Order Guide Generation</span>
         <h4 class="extra-subheading">New account? Pesto builds the guide for you.</h4>
         <p>
-          Take a customer's menu, inventory list, or a conversation about their needs — and Pesto generates a tailored order guide matched to your catalog. Ready to hand to the customer. No more searching AS400 line by line.
+          Take a customer's menu, inventory list, or a conversation about their needs — and Pesto generates a tailored order guide matched to your catalog, ready to hand to the customer. No more searching AS400 line by line.
         </p>
       </div>
     </div>
@@ -880,61 +882,37 @@
 <!-- FEATURE 6: MANAGER DASHBOARD -->
 <section class="manager-section">
   <div class="manager-inner">
+    <div style="text-align:center; margin-bottom: 48px;">
+      <span class="features-badge features-badge--dark"><span class="hero-badge-dot"></span>Feature for Managers</span>
+    </div>
     <div class="manager-header reveal">
-      <span class="section-label">Feature 06 — For Sales Managers</span>
-      <h2 class="section-title">No need to ask reps what happened — just look.</h2>
+      <span class="section-label">Feature 06 — Visibility Dashboard</span>
+      <h2 class="section-title">Full visibility into what's happening in the field.</h2>
       <p class="section-body">
-        Because Pesto captures every interaction, order, and conversation across the team's day, managers get a live view of what's actually happening in the field — without reps doing a single extra thing.
+        Every interaction, order, and conversation is captured automatically — giving managers a live view of field activity without adding work for reps.
       </p>
     </div>
 
-    <div class="manager-stats reveal">
-      <div class="manager-stat">
-        <div class="manager-stat-value">0</div>
-        <div class="manager-stat-label">Extra reports required from reps</div>
-      </div>
-      <div class="manager-stat">
-        <div class="manager-stat-value"><span>100%</span></div>
-        <div class="manager-stat-label">Of interactions captured and structured</div>
-      </div>
-      <div class="manager-stat">
-        <div class="manager-stat-value">Live</div>
-        <div class="manager-stat-label">Activity feed across the entire team</div>
-      </div>
-      <div class="manager-stat">
-        <div class="manager-stat-value"><span>Early</span></div>
-        <div class="manager-stat-label">At-risk accounts surfaced before they churn</div>
-      </div>
-    </div>
-
     <div class="manager-screenshot reveal">
-      <img src="images/demo images/manager visibility dashboard_screenshot.png" alt="Manager Visibility Dashboard" />
+      <img src="images/demo images/macbook mockup_visibility dashboard.png" alt="Manager Visibility Dashboard" />
     </div>
 
     <div class="manager-features reveal">
       <div class="manager-feature">
-        <h4>Rep activity &amp; performance</h4>
-        <p>Visit frequency, responsiveness, and activity data for every rep — based on what actually happened, not what they chose to log.</p>
+        <h4>Team-wide activity &amp; performance</h4>
+        <p>Visit frequency, responsiveness, and revenue by rep — based on what actually happened, not what was logged.</p>
       </div>
       <div class="manager-feature">
         <h4>Customer health &amp; risk signals</h4>
-        <p>Declining order frequency, unresolved issues, and competitive threats surface automatically — before an account churns.</p>
+        <p>Declining orders, unresolved issues, and competitive threats surface automatically before accounts churn.</p>
       </div>
       <div class="manager-feature">
-        <h4>Pipeline &amp; opportunity tracking</h4>
-        <p>Every conversation generates structured opportunities and tasks. See what's being surfaced, what's stalled, and what needs your attention.</p>
-      </div>
-      <div class="manager-feature">
-        <h4>Drill into any customer thread</h4>
-        <p>Full visibility into every account — communications, transcriptions, notes, timelines, and current status. No ride-along required.</p>
+        <h4>Full account visibility</h4>
+        <p>Every communication, note, and transcript tied to each customer. No ride-along required.</p>
       </div>
       <div class="manager-feature">
         <h4>Seamless account transfers</h4>
-        <p>When reps leave or territories change, the full interaction history stays with the account. Institutional knowledge never walks out the door.</p>
-      </div>
-      <div class="manager-feature">
-        <h4>Analytics and coachable moments</h4>
-        <p>Identify what top-performing reps do differently and replicate it. Spot coaching opportunities across the org — from real interaction data.</p>
+        <p>When reps leave or territories change, the full history stays with the account.</p>
       </div>
     </div>
   </div>
