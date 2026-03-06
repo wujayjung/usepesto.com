@@ -279,63 +279,27 @@
     /* ── INTRO / PROBLEM ── */
     .intro-section { background: var(--bg-white); }
 
-    .intro-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 72px;
-      align-items: start;
+    .intro-text {
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
     }
 
-    .intro-left .section-title { max-width: 480px; }
-
-    .pain-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    .intro-text p {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(26px, 3vw, 36px);
+      line-height: 1.5;
+      letter-spacing: -0.01em;
     }
 
-    .pain-card {
-      background: var(--bg-white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
+    .intro-text p:first-of-type {
+      color: var(--text-dark);
     }
 
-    .pain-icon {
-      width: 40px; height: 40px;
-      background: var(--green-pale);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 18px;
+    .intro-text p + p {
+      margin-top: 40px;
+      color: var(--text-mid);
     }
-
-    .pain-card h4 {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 4px;
-      letter-spacing: -0.02em;
-    }
-    .pain-card p { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
-
-    .insight-box {
-      margin-top: 32px;
-      background: var(--green);
-      color: #fff;
-      border-radius: var(--radius);
-      padding: 28px 32px;
-    }
-    .insight-box p {
-      font-size: 16px;
-      line-height: 1.65;
-      opacity: 0.92;
-    }
-    .insight-box strong { opacity: 1; font-weight: 700; }
 
     /* ── IMPACT ── */
     .impact-section { background: var(--bg-white); }
@@ -469,6 +433,14 @@
       font-weight: 800;
       letter-spacing: -0.03em;
       margin-bottom: 12px;
+    }
+
+    .extra-subheading {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      line-height: 1.4;
     }
 
     .extra-card p { font-size: 15px; color: var(--text-mid); line-height: 1.7; margin-bottom: 24px; }
@@ -655,7 +627,6 @@
       .hero { grid-template-columns: 1fr; padding: 72px 24px 48px; gap: 48px; min-height: calc(100vh - 68px); }
       .hero-image { order: -1; }
       .hero-image img { max-width: 280px; }
-      .intro-grid { grid-template-columns: 1fr; gap: 40px; }
       .feature-grid, .feature-grid.reverse { grid-template-columns: 1fr; direction: ltr; gap: 40px; }
       .feature-image { order: -1; }
       .extras-grid { grid-template-columns: 1fr; }
@@ -734,49 +705,9 @@
 <!-- INTRO / PROBLEM -->
 <section class="intro-section">
   <div class="container">
-    <div class="intro-grid">
-      <div class="intro-left reveal">
-        <span class="section-label">The Problem</span>
-        <h2 class="section-title">Your reps are spending more time on admin than selling</h2>
-        <p class="section-body">
-          Order entry, CRM updates, and customer follow-ups eat up 30+ hours a week. Meanwhile, customer knowledge lives only in reps' heads — and your best accounts are placing orders on weekends when no one's available.
-        </p>
-        <div class="insight-box" style="margin-top: 32px;">
-          <p><strong>The bottom line:</strong> The best distribution reps build relationships, spot opportunities, and grow accounts. But today's tools force them to spend the majority of their day on work that doesn't require a salesperson.</p>
-        </div>
-      </div>
-      <div class="intro-right reveal">
-        <div class="pain-cards">
-          <div class="pain-card">
-            <div class="pain-icon">📋</div>
-            <div>
-              <h4>30+ hours a week lost to admin</h4>
-              <p>Order entry, CRM updates, and follow-ups consume the time that should go toward growing accounts. Reps are buried before lunch.</p>
-            </div>
-          </div>
-          <div class="pain-card">
-            <div class="pain-icon">🧠</div>
-            <div>
-              <h4>Customer knowledge lives in reps' heads</h4>
-              <p>Details from earlier conversations get fuzzy by end of week. Managers only know what reps tell them. Handoffs lose nuance. Onboarding new reps takes months.</p>
-            </div>
-          </div>
-          <div class="pain-card">
-            <div class="pain-icon">🌙</div>
-            <div>
-              <h4>Customers operate 24/7. Your reps don't.</h4>
-              <p>After-hours requests, weekend orders, and urgent add-ons slip through the cracks — or become fires to put out Monday morning.</p>
-            </div>
-          </div>
-          <div class="pain-card">
-            <div class="pain-icon">🔭</div>
-            <div>
-              <h4>Managers flying blind</h4>
-              <p>Leaders piece together what's happening from inconsistent CRM notes and whatever reps choose to share. Real visibility into account health and pipeline doesn't exist.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="intro-text reveal">
+      <p>Reps spend 30+ hours a week on order entry, CRM updates, and follow-ups — time that should go toward growing accounts. Customer knowledge lives in reps' heads and nowhere else. And customers operate 24/7, but your reps don't — after-hour requests and weekend orders slip through the cracks.</p>
+      <p>Pesto sits between your reps and their customers — watching conversations, parsing orders, flagging problems, and handling routine tasks automatically. The rep stays in control of every decision. The busywork just disappears.</p>
     </div>
   </div>
 </section>
@@ -910,34 +841,24 @@
   <div class="container">
     <div class="extras-header reveal">
       <span class="section-label">Also Built In</span>
-      <h2 class="section-title">Two more things your reps will love</h2>
+      <h2 class="section-title">Two more things you'll love</h2>
     </div>
     <div class="extras-grid">
       <div class="extra-card reveal">
         <span class="extra-tag">Feature 04</span>
         <h3>Shorts &amp; Substitutions</h3>
+        <h4 class="extra-subheading">Your customer knows the moment the warehouse does.</h4>
         <p>
-          Your customer knows the moment the warehouse does. When a short is flagged, Pesto notifies the customer immediately — even before the rep's day starts — and suggests substitutions tailored to their order history, not just defaults.
+          When a short is flagged, Pesto notifies the customer immediately — even before the rep's day starts. It suggests substitutions based on their order history, not defaults. Once confirmed, it handles the changes automatically or loops in the rep.
         </p>
-        <ul class="extra-bullets">
-          <li>Detects shorted items the moment they're flagged by the warehouse</li>
-          <li>Suggests substitutions based on customer history, not just defaults</li>
-          <li>Notifies the customer proactively before the truck arrives</li>
-          <li>Handles approval and next steps automatically — loops in the rep only when needed</li>
-        </ul>
       </div>
       <div class="extra-card reveal">
         <span class="extra-tag">Feature 05</span>
         <h3>Order Guide Generation</h3>
+        <h4 class="extra-subheading">New account? Pesto builds the guide for you.</h4>
         <p>
-          New account? Pesto builds the guide for you. Take a customer's menu, inventory list, or a conversation about their needs — and Pesto generates a tailored order guide matched to your catalog. No more searching AS400 line by line.
+          Take a customer's menu, inventory list, or a conversation about their needs — and Pesto generates a tailored order guide matched to your catalog. Ready to hand to the customer. No more searching AS400 line by line.
         </p>
-        <ul class="extra-bullets">
-          <li>Ingests the customer's menu (photo, PDF, or conversation) to identify what they need</li>
-          <li>Maps items to catalog products with correct item numbers, pack sizes, and real pricing</li>
-          <li>Produces a clean, ready-to-hand order guide on the spot</li>
-          <li>Updates automatically as ordering patterns develop post-onboarding</li>
-        </ul>
       </div>
     </div>
   </div>
@@ -1047,7 +968,7 @@
   reveals.forEach(el => observer.observe(el));
 
   // Stagger siblings
-  document.querySelectorAll('.impact-grid, .extras-grid, .pain-cards, .manager-features, .manager-stats').forEach(grid => {
+  document.querySelectorAll('.impact-grid, .extras-grid, .manager-features, .manager-stats').forEach(grid => {
     [...grid.children].forEach((child, i) => {
       child.style.transitionDelay = `${i * 80}ms`;
     });
