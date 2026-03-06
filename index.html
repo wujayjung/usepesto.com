@@ -52,7 +52,7 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .nav-logo img { height: 28px; }
+    .nav-logo img { height: 40px; }
 
     .nav-cta {
       background: var(--green);
@@ -78,6 +78,7 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 100px 48px 80px;
+      min-height: calc(100vh - 68px);
     }
 
     .hero-badge {
@@ -597,7 +598,7 @@
       justify-content: space-between;
     }
 
-    footer img { height: 22px; }
+    footer img { height: 34px; }
     footer p { font-size: 13px; color: var(--text-muted); }
 
     /* ── SCROLL ANIMATIONS ── */
@@ -612,7 +613,7 @@
     @media (max-width: 900px) {
       nav { padding: 0 24px; }
       section { padding: 64px 24px; }
-      .hero { grid-template-columns: 1fr; padding: 72px 24px 48px; gap: 48px; }
+      .hero { grid-template-columns: 1fr; padding: 72px 24px 48px; gap: 48px; min-height: calc(100vh - 68px); }
       .hero-image { order: -1; }
       .hero-image img { max-width: 280px; }
       .intro-grid { grid-template-columns: 1fr; gap: 40px; }
